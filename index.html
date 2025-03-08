@@ -12,14 +12,14 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background: url('https://static.vecteezy.com/system/resources/previews/024/062/005/non_2x/dna-structure-with-black-background-ai-generated-free-photo.jpg') no-repeat center center fixed;
+            background: url('https://res.cloudinary.com/dowtiuicx/image/upload/v1741233792/DALL_E_2025-03-05_14.11.26_-_A_highly_detailed_3D_rendering_of_a_DNA_double_helix_structure._The_DNA_strands_are_twisting_elegantly_with_a_glowing_golden_and_soft_pink_color_schem_o0gzpe.png') no-repeat center center fixed;
             background-size: cover;
             text-align: center;
             transition: background 0.5s, color 0.5s;
             overflow-x: hidden;
         }
         header {
-            background: #01262bf0;
+            background: #76674ef0;
             color: white;
             padding: 15px;
             font-size: 28px;
@@ -93,33 +93,40 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
         footer {
-            background: #01262bf0;
+            background: #76674ef0;
             color: white;
             padding: 15px;
             position: fixed;
             bottom: 0;
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 15px 20px;
         }
         .footer-right {
             font-size: 14px;
             color: #ccc;
         }
         .dark-mode {
-            background-color: #512b2b;
+            background-color: #272626;
             color: white;
         }
         .dark-mode section {
-            background: #333;
+            background: #373737;
             color: white;
         }
         .dark-mode input, .dark-mode button {
             background: #555;
             color: white;
             border: 1px solid #888;
+        }
+        .dark-mode .result-container {
+            background: #555;
+            color: white;
+        }
+        .dark-mode #infoSection {
+            background-color: #373737;
+            color: white;
         }
         #darkModeBtn {
             position: fixed;
@@ -136,7 +143,39 @@
         #darkModeBtn:hover {
             background: #666;
         }
-        
+        .result-container {
+            position: fixed;
+            top: 140px;
+            right: 20px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: 0.3s ease-in-out;
+        }
+        .result-container span {
+            display: block;
+            margin-bottom: 4px;
+        }
+        #infoSection {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1002;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+            width: 80%;
+            max-width: 600px;
+        }
+        .info-section-dark {
+            background-color: #373737;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -145,53 +184,72 @@
     </header>
     <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-    <main>
-        <section>
+    <main id="mainContent">
+        <button style="margin-bottom: 20px;" onclick="showInfo()">About DNA and RNA</button>
+        <section id="dnaSection">
             <h2>Find the Complementary DNA/RNA Strand</h2>
             <input type="text" id="dnaInput" placeholder="Enter DNA/RNA Sequence">
             <button class="green-button" onclick="findComplement()">Find Complement</button>
             <button onclick="findReverseComplement()">Find Reverse Complement</button>
             <button onclick="generateRandomDNA()">Generate Random DNA</button>
-            <p><strong>Complementary Strand:</strong> <span id="dnaComplement"></span></p>
             <p><strong>Dynamic DNA/RNA Fact:</strong> <span id="dnaFact"></span></p>
         </section>
-        <section>
-            <h2>About DNA and RNA</h2>
-            <p>DNA and RNA are nucleic acids that store genetic information. DNA contains the bases A, T, G, and C, while RNA contains A, U, G, and C. In DNA, Adenine (A) pairs with Thymine (T), and Guanine (G) pairs with Cytosine (C). In RNA, Thymine (T) is replaced by Uracil (U).</p>
-            <ul>
-                <li><strong>A:</strong> Adenine (A) is a purine base that pairs with Thymine (T) in DNA and Uracil (U) in RNA.</li>
-                <li><strong>T:</strong> Thymine (T) is a pyrimidine base that pairs with Adenine (A) in DNA.</li>
-                <li><strong>G:</strong> Guanine (G) is a purine base that pairs with Cytosine (C) in both DNA and RNA.</li>
-                <li><strong>C:</strong> Cytosine (C) is a pyrimidine base that pairs with Guanine (G) in both DNA and RNA.</li>
-                <li><strong>U:</strong> Uracil (U) is a pyrimidine base found only in RNA, pairing with Adenine (A).</li>
-            </ul>
-        </section>
-        
-        <div class="image-container">
-            <img src="https://cpf-temp-repo-an1-prod.s3.ap-northeast-1.amazonaws.com/f85a49b4-2a9b-4aae-85a6-e46c64ab69d2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250304T145555Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAU3E5TYZ22HKHGRMU%2F20250304%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Signature=d61622465a81ce9d0ec078576e522e4f96cd79d6594c629252fec15888419090" alt="DNA Structure">
-            <img src="https://cpf-temp-repo-an1-prod.s3.ap-northeast-1.amazonaws.com/bb2d5264-f45c-44b6-8488-f7966cf13dd9?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250304T145939Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAU3E5TYZ22HKHGRMU%2F20250304%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Signature=3a047c1db0ee15f36503e7b7112f7faedfd9a1468b038ab837ca29d707bf7496" alt="RNA Structure">
+
+        <div class="video-container" id="videoContainer">
+            <!-- First MP4 Video from GitHub (Auto-Playing, No Controls) -->
+            <video width="320" height="240" autoplay loop muted>
+                <source src="https://raw.githubusercontent.com/ed6095-web/hiiii/refs/heads/main/dna%20gif.mp4">
+            </video>
+
+            <!-- Second MP4 Video from GitHub (Auto-Playing, No Controls) -->
+            <video width="320" height="240" autoplay loop muted>
+                <source src="https://raw.githubusercontent.com/ed6095-web/hiiii/refs/heads/main/WhatsApp%20Video%202025-03-03%20at%2020.29.29_a1992592.mp4">
+            </video>
         </div>
     </main>
     
     <footer>
-        <span>&copy; Designed by EASHAN DARSH/SHASHWAT CHATURVEDI</span>
-        <span class="footer-right">Presented by Asim/Preeti/Sneha/Ridhi</span>
-
+        <span>Made By Team X</span>
     </footer>
+
+    <div class="result-container" id="resultContainer">
+        <span><strong>Complement:</strong> <span id="complementResult"></span></span>
+        <span><strong>Reverse Complement:</strong> <span id="reverseComplementResult"></span></span>
+    </div>
+
+    <div id="infoSection">
+        <h2 style="margin-bottom: 20px;">About DNA and RNA</h2>
+        <p>DNA and RNA are nucleic acids that store genetic information. DNA contains the bases A, T, G, and C, while RNA contains A, U, G, and C. In DNA, Adenine (A) pairs with Thymine (T), and Guanine (G) pairs with Cytosine (C). In RNA, Thymine (T) is replaced by Uracil (U).</p>
+        <ul>
+            <li><strong>A:</strong> Adenine (A) is a purine base that pairs with Thymine (T) in DNA and Uracil (U) in RNA.</li>
+            <li><strong>T:</strong> Thymine (T) is a pyrimidine base that pairs with Adenine (A) in DNA.</li>
+            <li><strong>G:</strong> Guanine (G) is a purine base that pairs with Cytosine (C) in both DNA and RNA.</li>
+            <li><strong>C:</strong> Cytosine (C) is a pyrimidine base that pairs with Guanine (G) in both DNA and RNA.</li>
+            <li><strong>U:</strong> Uracil (U) is a pyrimidine base found only in RNA, pairing with Adenine (A).</li>
+        </ul>
+        <button onclick="closeInfo()">Close</button>
+    </div>
 
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             let btn = document.getElementById("darkModeBtn");
+            let infoSection = document.getElementById("infoSection");
+            let resultContainer = document.getElementById("resultContainer");
+            let dnaSection = document.getElementById("dnaSection");
             if (document.body.classList.contains("dark-mode")) {
                 btn.innerText = "🌝 Light Mode";
+                infoSection.classList.add("info-section-dark");
+                resultContainer.classList.add("dark-mode");
+                dnaSection.classList.add("info-section-dark");
             } else {
                 btn.innerText = "🌚 Dark Mode";
+                infoSection.classList.remove("info-section-dark");
+                resultContainer.classList.remove("dark-mode");
+                dnaSection.classList.remove("info-section-dark");
             }
         }
-    </script>
 
-    <script>
         function findComplement() {
             let input = document.getElementById("dnaInput").value.toUpperCase();
             let complement = "";
@@ -206,7 +264,7 @@
                 }
             }
             
-            document.getElementById("dnaComplement").innerText = complement;
+            document.getElementById("complementResult").innerText = complement;
             updateDNAFact();
         }
 
@@ -224,7 +282,8 @@
                 }
             }
             
-            document.getElementById("dnaComplement").innerText = complement.split("").reverse().join("");
+            let reverseComplement = complement.split("").reverse().join("");
+            document.getElementById("reverseComplementResult").innerText = reverseComplement;
             updateDNAFact();
         }
 
@@ -240,6 +299,19 @@
             document.getElementById("dnaInput").value = randomDNA;
             findComplement();
         }
+
+        function showInfo() {
+            document.getElementById("dnaSection").style.display = 'none';
+            document.getElementById("infoSection").style.display = 'block';
+            document.getElementById("videoContainer").style.display = 'none'; // Hide video container
+        }
+
+        function closeInfo() {
+            document.getElementById("dnaSection").style.display = 'block';
+            document.getElementById("infoSection").style.display = 'none';
+            document.getElementById("videoContainer").style.display = 'flex'; // Show video container
+        }
+        
         
         function updateDNAFact() {
             const facts = [
